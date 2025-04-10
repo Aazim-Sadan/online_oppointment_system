@@ -31,8 +31,9 @@ export const addAvailability = async (req, res) => {
 
 export const getAvailability = async (req, res) => {
     try {
-        const { professorId } = req.params;
-        console.log("Requested professorId:", professorId);
+        // const { professorId } = req.params;
+        const professorId = req.params.professorId.replace(/['"]+/g, '');
+
 
 
         const availability = await Availability.findOne({
@@ -50,6 +51,7 @@ export const getAvailability = async (req, res) => {
             success: true
         })
     } catch (error) {
+        console.error("Error in getAvailability:", error);
         res.status(500).json({ message: "Server Error" });
     }
 };

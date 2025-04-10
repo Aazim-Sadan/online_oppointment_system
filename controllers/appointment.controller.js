@@ -14,6 +14,7 @@ export const bookAppointment = async (req, res) => {
         const existingAppointment = await Appointment.findOne({
             student: req.user._id,
             professor: professorId,
+            time,
             status: 'booked'
         });
 
@@ -62,8 +63,8 @@ export const cancelAppointment = async (req, res) => {
         }
 
 
-        return res.status(201).json({
-            message: "Appointment canceled succuessfully",
+        return res.status(200).json({
+            message: "Appointment cancelled successfully",
             appointment,
             success: true
         });
