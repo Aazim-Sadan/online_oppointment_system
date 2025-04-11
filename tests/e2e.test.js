@@ -136,7 +136,7 @@ describe('End-to-End Appointment Flow', () => {
 
         expect(book.statusCode).toBe(201);
         console.log('Student A2 booked an appointment');
-    }, 10000);
+    });
 
     test('Professor P1 cancels appointment with A1', async () => {
         const cancel = await request(app)
@@ -146,6 +146,6 @@ describe('End-to-End Appointment Flow', () => {
         expect(cancel.statusCode).toBe(200);
         expect(cancel.body.message).toBe("Appointment cancelled successfully");
         console.log('Professor P1 cancelled the appointment with Student A1');
-    }, 10000);
+    });
 
 });
