@@ -7,16 +7,19 @@ import appointmentRoutes from './routes/appointment.route.js';
 
 dotenv.config();
 const app = express();
-export default app;
+
 
 app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/availability', availabilityRoutes);
 app.use('/appointments', appointmentRoutes);
 
+app.get("/", (req, res) => {
+    res.type('text/plain').send("🟢 Express is alive!");
+  });
 
 connectDB()
-    .then(() => {
+.then(() => {
         app.listen(process.env.PORT || 8000, () => {
             console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
         })
@@ -24,3 +27,6 @@ connectDB()
     .catch((err) => {
         console.log("MONGO db connection failed !!! ", err);
     })
+
+
+export default app;

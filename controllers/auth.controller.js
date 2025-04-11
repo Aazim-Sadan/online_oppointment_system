@@ -4,7 +4,10 @@ import { User } from '../models/user.model.js';
 
 export const register = async (req, res) => {
     try {
+        console.log("Inside register handler");
         const { name, email, password, role } = req.body;
+        console.log(name, email, password, role);
+        
 
         if (!name || !email || !password || !role) {
             return res.json("All fields are required")
@@ -30,6 +33,7 @@ export const register = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: "Server Error" });
     }
 };

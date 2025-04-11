@@ -148,13 +148,4 @@ describe('End-to-End Appointment Flow', () => {
         console.log('Professor P1 cancelled the appointment with Student A1');
     }, 10000);
 
-    // test('Student A1 checks no pending appointments', async () => {
-    //     const res = await request(app)
-    //         .get('/appointments/me')
-    //         .set('Authorization', `Bearer ${studentToken}`);
-
-    //     expect(res.statusCode).toBe(200);
-    //     expect(res.body.appointments.length).toBe(0);
-    //     console.log('Student A1 has no pending appointments');
-    // }, 10000);
 });
