@@ -116,7 +116,6 @@ describe('End-to-End Appointment Flow', () => {
             .set('Authorization', `Bearer ${student2Token}`);
 
 
-        console.log('Availability:', res.body);
 
         const slot = res.body.availability?.slots[1];
 
@@ -137,6 +136,31 @@ describe('End-to-End Appointment Flow', () => {
         expect(book.statusCode).toBe(201);
         console.log('Student A2 booked an appointment');
     });
+
+    test('Student A2 fails to book the same time slot with P1', async () => {
+        const res = await request(app)
+            .get(`/availability/${professorId}`)
+            .set('Authorization', `Bearer ${student2Token}`);
+    
+        const slot = res.body.availability?.slots[0]; // same slot Student A1 booked
+    
+        if (!slot) {
+            console.error('Slot not found for Student A2 to book');
+            return;
+        }
+    
+        const book = await request(app)
+            .post('/appointments')
+            .set('Authorization', `Bearer ${student2Token}`)
+            .send({ professorId, time: slot });
+    
+        console.log('Booking Response', book.body);
+    
+        expect(book.statusCode).toBe(201);
+        expect(book.body.message).toBe("This time slot is already booked with the professor.");
+        console.log('Student A2 correctly blocked from booking the same slot');
+    });
+    
 
     test('Professor P1 cancels appointment with A1', async () => {
         const cancel = await request(app)

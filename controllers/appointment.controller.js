@@ -23,7 +23,18 @@ export const bookAppointment = async (req, res) => {
                 message: "You have already booked an appointment with this professor."
             });
         }
+        
+        const isSlotTaken = await Appointment.findOne({
+            professor: professorId,
+            time,
+            status: 'booked'
+        });
 
+        if (isSlotTaken) {
+            return res.status(400).json({
+                message: "This time slot is already booked with the professor."
+            });
+        }
         const appointment = await Appointment.create({
             student: req.user._id,
             professor: professorId,
