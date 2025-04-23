@@ -4,9 +4,7 @@ import { User } from '../models/user.model.js';
 
 export const register = async (req, res) => {
     try {
-        console.log("Inside register handler");
         const { name, email, password, role } = req.body;
-        console.log(name, email, password, role);
         
 
         if (!name || !email || !password || !role) {
